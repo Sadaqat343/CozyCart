@@ -1,7 +1,7 @@
 
 import ProductCard from './ProductCard';
 
-const products = [
+const defaultProducts = [
   {
     id: 1,
     name: 'Classic Winter Jacket',
@@ -36,24 +36,30 @@ const products = [
   },
 ];
 
-function ProductSection() {
+function ProductSection({
+  products = defaultProducts,
+  eyebrow = 'THE WINTER COLLECTION',
+  title = 'Winter essentials',
+  description = 'Find your comfort for the colder days.',
+  id = 'shop',
+}) {
   return (
     <section
-      id="shop"
+      id={id}
       className="bg-white px-[7%] py-20 text-[#252a30] max-md:px-[5%] max-md:py-[55px]"
     >
       <div className="mb-8 flex items-end justify-between gap-5 max-[520px]:items-start">
         <div>
           <p className="mb-3 text-[12px] font-bold tracking-[2px] text-[#718997]">
-            THE WINTER COLLECTION
+            {eyebrow}
           </p>
 
           <h2 className="mb-[10px] text-[clamp(28px,4vw,40px)] font-bold">
-            Winter essentials
+            {title}
           </h2>
 
           <p className="m-0 text-[14px] leading-[1.6] text-[#73777b]">
-            Find your comfort for the colder days.
+            {description}
           </p>
         </div>
 
