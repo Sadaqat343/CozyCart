@@ -9,7 +9,9 @@ import Categories from './components/Categories';
 import ProductSection from './components/ProductSection';
 import About from './components/About';
 import Footer from './components/Footer';
-
+import Contact from './components/Contact';
+import FAQ from './components/FAQ';
+import FeaturedSlider from './components/FeaturedSlider';
 // New pages
 import Men from './pages/Men';
 import Women from './pages/Women';
@@ -23,7 +25,10 @@ function Home() {
         <Hero />
         <Categories />
         <ProductSection />
+        <FeaturedSlider />
         <About />
+        <FAQ />
+        <Contact />
       </main>
     </>
   );
