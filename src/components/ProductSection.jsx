@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 
 const defaultProducts = [
@@ -37,12 +38,41 @@ const defaultProducts = [
 ];
 
 function ProductSection({
-  products = defaultProducts,
+  products: providedProducts,
   eyebrow = 'THE WINTER COLLECTION',
   title = 'Winter essentials',
   description = 'Find your comfort for the colder days.',
   id = 'shop',
 }) {
+  const [apiProducts, setApiProducts] = useState(defaultProducts);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/products');
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+
+        const data = await response.json();
+
+        const formattedProducts = data.map((product) => ({
+          ...product,
+          image: product.imageUrl || product.image || '',
+        }));
+
+        setApiProducts(formattedProducts);
+      } catch (error) {
+        console.error('Products API error:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const displayedProducts = providedProducts ?? apiProducts;
+
   return (
     <section
       id={id}
@@ -64,12 +94,12 @@ function ProductSection({
         </div>
 
         <span className="whitespace-nowrap pb-1 text-[14px] text-[#73777b] max-[520px]:text-[12px]">
-          {products.length} products
+          {displayedProducts.length} products
         </span>
       </div>
 
       <div className="grid grid-cols-4 gap-6 max-[1000px]:grid-cols-2 max-[520px]:gap-3">
-        {products.map((product) => (
+        {displayedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
